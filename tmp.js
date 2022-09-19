@@ -25,7 +25,7 @@ function getCurrency(CurrencyName){
     const req = https.request(options, (res) => {
       console.log(`statusCode: ${res.statusCode}`)
       res.on('data', (d) => {
-        process.stdout.write(d)
+        process.stdout.write(d.body)
       })
     })
     req.on('error', (error) => {
