@@ -1,10 +1,12 @@
 function getCurrency(CurrencyName){
     const https = require('https')
+    var str = ""
     const options = {
       hostname: 'www.bloomberg.com',
       port: 443,
       path: '/markets2/api/datastrip/' + CurrencyName,
       method: 'GET',
+      json: true,
       headers: {
         "authority": "www.bloomberg.com",
         "accept": '*/*',
@@ -25,8 +27,20 @@ function getCurrency(CurrencyName){
     const req = https.request(options, (res) => {
       console.log(`statusCode: ${res.statusCode}`)
       res.on('data', (d) => {
-        process.stdout.write(d.body)
-      })
+
+        var jsonArray = JSON.parse(JSON.stringify(d.toString()))
+        str += jsonArray
+        res.on('end', function () {
+            console.log('BODY: ' + str);
+            const fs = require('fs');
+            fs.writeFile('user.json', str, (err) => {
+                if (err) {
+                    throw err;
+                }
+                console.log("JSON data is saved.");
+            });
+        })
+});
     })
     req.on('error', (error) => {
       console.error(error)
@@ -35,3 +49,16 @@ function getCurrency(CurrencyName){
 }
 
 getCurrency("CNYEUR:CUR")
+
+const isJson = (data) => {
+    try {
+      const testIfJson = JSON.parse(data);
+      if (typeof testIfJson === "object") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch {
+      return false;
+    }
+  };
