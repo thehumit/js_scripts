@@ -31,14 +31,14 @@ function getCurrency(CurrencyName){
         var jsonArray = JSON.parse(JSON.stringify(d.toString()))
         str += jsonArray
         res.on('end', function () {
-            console.log('BODY: ' + str);
-            const fs = require('fs');
-            fs.writeFile('user.json', str, (err) => {
-                if (err) {
-                    throw err;
-                }
-                console.log("JSON data is saved.");
-            });
+            // console.log('BODY: ' + str);
+            // const fs = require('fs');
+            // fs.writeFile('user.json', str, (err) => {
+                // if (err) {
+                    // throw err;
+                // }
+                // console.log("JSON data is saved.");
+            // });
         })
 });
     })
@@ -46,19 +46,20 @@ function getCurrency(CurrencyName){
       console.error(error)
     })
     req.end()
+    return(str)
 }
 
 getCurrency("CNYEUR:CUR")
 
-const isJson = (data) => {
-    try {
-      const testIfJson = JSON.parse(data);
-      if (typeof testIfJson === "object") {
-        return true;
-      } else {
-        return false;
-      }
-    } catch {
-      return false;
-    }
-  };
+// const isJson = (data) => {
+//     try {
+//       const testIfJson = JSON.parse(data);
+//       if (typeof testIfJson === "object") {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     } catch {
+//       return false;
+//     }
+//   };
