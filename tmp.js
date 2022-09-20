@@ -49,7 +49,8 @@ function getCurrency(CurrencyName){
     return(str)
 }
 
-getCurrency("CNYEUR:CUR")
+console.log(getCurrency("CNYEUR:CUR"))
+// getCurrency()
 
 // const isJson = (data) => {
 //     try {
